@@ -1,0 +1,41 @@
+/*
+ * spa.shell.css
+ * Copyright ryuji.oike@gmail.com
+ * Released under the MIT license
+ * http://opensource.org/licenses/mit-license.php
+*/
+
+/*---module section------*/
+/*--end module---*/
+
+/*-----modal section------------*/
+.modal {
+  display: none;
+	z-index: 100;
+	border: none;
+	background-color: rgba(0, 0, 0, .3);
+}
+
+.off-modal {
+  background: #FFD300;
+  border-radius: 50%;
+  color: #818d97;
+  cursor: pointer;
+  display: inline-block;
+  height: 20px;
+  position: absolute;
+  right: 10%;
+  top: 5%;
+  width: 20px;
+}
+
+.modal-overlay {
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  position: absolute;
+  background-color: #fff;
+}
+
+/*---------animashion loader section-------------*/
+

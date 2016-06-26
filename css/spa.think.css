@@ -1,0 +1,61 @@
+/*
+ * spa.think.css
+ * Copyright 2016 ryuji.oike@gmail.com
+ *-----------------------------------------------------------------
+*/
+
+#think-container {
+  padding: 42px 0;
+}
+
+.think-content {
+  max-width: 900px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.think-section {
+  margin: 16px auto;
+  max-width: 720px;
+  padding: 0;;
+}
+
+.think-section p {
+  line-height: 28px;
+  font-size: 16px;
+}
+
+.think-section ~ .think-section {
+  border-top: 1px solid #F0F0F0;
+}
+
+.think-section footer {
+  border-top: 1px solid #F0F0F0;
+  padding: 10px 16px;
+  background-color: transparent;
+}
+
+#think-container figure {
+  float: right;
+  margin-bottom: 3em;
+  margin-top: -56px;
+  max-height: 200px;
+  text-align: center;
+  width: 300px;
+}
+
+#think-container figure img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+#think-container figure.align-paragraph,
+#think-container figure ~ figure {
+  clear: right;
+  margin-top: 0;
+}
+
+#think-container figure ~ p,
+#think-container figure ~ ul {
+  margin-right: 320px;
+}

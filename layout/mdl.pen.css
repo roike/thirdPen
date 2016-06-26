@@ -1,0 +1,251 @@
+/**
+ * mdl.pen.css
+ * ryuji.oike@gmail.com
+ */
+
+
+html, body {
+  background: #F5F5F5;
+  color: #757575;
+  font-size: 14px;
+  font-family: Roboto, 'Noto Sans Japanese', sans-serif;
+}
+
+img {
+  border: 0;
+}
+
+.mdl-layout {
+  display: block;
+ 
+}
+
+.mdl-layout__header {
+  background-color: #FFF;
+  box-shadow: none;
+  position: relative;
+
+}
+.mdl-layout__header:after,
+.mdl-mini-footer:before {
+  background: linear-gradient(to right, #FAD961, #F76B1C);
+  content: " ";
+  display: block;
+  height: 2px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.mdl-layout__header:after {
+  bottom: 0;
+  z-index: -1;
+}
+
+.mdl-layout__header-row {
+  padding-left: 18px;
+}
+
+/*--custom --*/
+.logo-define, .shell-head-search {
+  color: #757575;
+  text-decoration: none;
+}
+
+
+.thirdpen-logo {
+  height: 40px;
+  margin-right: 12px;
+}
+.banner {
+  background: #F5F5F5 url(../images/banner@1.5x.png);
+  background-attachment: local;
+  /*background-position: center -50px;*/
+  background-size: cover;
+  height: 400px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+/*--cutom end --*/
+
+.mdl-layout__header .mdl-navigation__link {
+  color: #757575;
+}
+
+
+.content {
+  box-sizing: border-box;
+  min-height: calc(100vh - 164px);  /* 100vh - 64px header - 100px footer */
+  padding: 3em 0;
+  position: relative;
+}
+.content.with-drawer {
+  padding-left: 250px;
+}
+
+.content .mdl-layout__drawer {
+  background: none;
+  box-shadow: none;
+  border: none;
+  height: auto;
+  top: 320px;
+  /* By default, MDL drawer is hidden. Override the transform to show it. */
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
+  -webkit-transform: none;
+  transform: none;
+}
+
+.section-center {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.mdl-card__supporting-text {
+  box-sizing: border-box;
+  padding: 40px;
+  width: 100%;
+}
+
+.mdl-card__supporting-text ~ .mdl-card__supporting-text {
+  border-top: 1px solid #F0F0F0;
+}
+
+h1 {
+  color: #757575;
+  font-size: 45px;
+  font-weight: 200;
+  margin-top: 0;
+}
+
+h3 {
+  color: rgb(97, 97, 97);
+  font-size: 24px;
+  font-weight: normal;
+  line-height: 32px;
+  margin-top: 0;
+}
+
+h5 {
+  color: rgb(97, 97, 97);
+  font-size: 14px;
+  line-height: 1.5em;
+  margin-top: 36px;
+}
+
+a {
+  color: #4285f4;  /* Google Blue 500 */
+}
+
+.mdl-layout__drawer .mdl-navigation__link {
+  font-weight: 400;
+}
+
+.mdl-mini-footer {
+  background: #FFF;
+  padding: 32px;
+  position: relative;
+}
+
+.mdl-mini-footer:before {
+  top: 0;
+}
+
+.mdl-mini-footer--link-list {
+  float: left;
+  margin-left: 20px;
+}
+
+.mdl-mini-footer--link-list li {
+  line-height: 1;
+  padding-top: 15px;
+}
+
+.pac-container:after {
+  display: none;
+}
+
+figure {
+  float: right;
+  margin-bottom: 3em;
+  margin-top: -56px;
+  max-height: 200px;
+  text-align: center;
+  width: 300px;
+}
+
+figure img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+figure.align-paragraph,
+figure ~ figure {
+  clear: right;
+  margin-top: 0;
+}
+
+figure ~ p,
+figure ~ ul {
+  margin-right: 320px;
+}
+
+
+/**
+ * Responsive layout
+ */
+
+@media screen and (max-width: 850px) {
+  .mdl-layout__header {
+    display: block;
+  }
+
+  .content {
+    padding: 0;
+  }
+
+  .content.with-drawer {
+    padding-left: 0;
+  }
+
+  .content .mdl-navigation {
+    display: none;
+  }
+
+  .section-center {
+    margin-top: 0;
+  }
+
+  .section-center .mdl-card {
+    margin: 0;
+    width: 100%;
+  }
+
+  .mdl-mini-footer--link-list {
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  figure {
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  figure {
+    float: none;
+    margin-bottom: 16px;
+    margin-top: 0;
+    width: auto;
+  }
+
+  figure ~ p,
+  figure ~ ul {
+    margin-right: 0;
+  }
+}

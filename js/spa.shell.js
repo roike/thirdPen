@@ -1,0 +1,230 @@
+/*
+ * thirdpen spa.shell.js
+ * Copyright 2016 ryuji.oike@gmail.com
+ * -----------------------------------------------------------------
+*/
+
+/*jslint         browser : true, continue : true,
+  devel  : true, indent  : 2,    maxerr   : 50,
+  newcap : true, nomen   : true, plusplus : true,
+  regexp : true, sloppy  : true, vars     : false,
+  white  : true
+*/
+/*global spa */
+
+/*新規モジュールを追加する場合のtodo-------------------------
+ * anchor_schemaに追加
+ * moduleMapに追加
+ * ---------------------
+ *  Note:
+ *  外部リンクはすべて制御下におく？
+ */
+spa.shell = (() => {
+  'use strict';
+  //---------------- BEGIN MODULE SCOPE VARIABLES --------------
+  const
+    //congigMapに静的な構成値を配置
+    configMap = {},
+    //stateMapにshellで共有する動的情報を配置
+    //anchor_map=履歴の格納
+    //container=コンテンツを動的に切り替えるセクションを宣言
+    stateMap  = {
+      //ローカルキャッシュはここで宣言する
+      container: undefined,
+      anchor_map: [],
+    },
+    //動的に呼び出す他モジュールを格納
+    moduleMap = {};
+
+  //Domコレクションをキャッシュ
+  let domMap = {};
+
+  //定数はここで宣言
+  const
+    //許可するanchorはここで宣言--モジュール名に一致
+    anchor_schema = [
+      'newist', 'home', 'blog', 'contact', 'think', 'sample'
+    ];
+
+  //----------------- END MODULE SCOPE VARIABLES ---------------
+
+  //-------------------- BEGIN UTILITY METHODS -----------------
+  const makeError = spa.util.makeError;
+  const testHistory = page => {
+    //page=[schema,,,]
+    const pageHistory = page.join('_');
+    let idx = stateMap.anchor_map.indexOf(pageHistory);
+    if (page.length == 1) {
+      stateMap.anchor_map = [pageHistory];
+      idx = 0;
+    }
+    else if (idx == -1) {
+      stateMap.anchor_map.push(pageHistory);
+      idx = stateMap.anchor_map.length - 1;
+    }
+    else if (stateMap.anchor_map.length - idx > 1) {
+      stateMap.anchor_map = stateMap.anchor_map.slice(0, idx + 1);
+    } else {
+      //想定外ケースの発生
+      console.info(page.toString());
+    }
+    return idx == 0 ? null : stateMap.anchor_map[idx-1].split('_');
+  };
+
+  //--------------------- END UTILITY METHODS ------------------
+
+  //--------------------- BEGIN DOM METHODS --------------------
+  //DOMメソッドにはページ要素の作成と操作を行う関数を配置
+  const setDomMap = () => {
+    domMap = {
+    //domコレクションをキャッシュするとドキュメントトラバーサル数を減らせる
+    };
+  };
+  
+  //--------------------- END DOM METHODS ----------------------
+
+  //------------------- BEGIN EVENT HANDLERS -------------------
+
+  //グローバルカスタムイベントのコールバック
+  const onIdentify = event => {
+    //apprication_idのチェック
+    //console.info(event.detail);
+    const app_map = event.detail
+    spa.uriAnchor.setAnchor( { 'page': app_map.anchor }, false );
+  };
+
+
+  const onError = event => {
+    const error = {
+      name: 'server',
+      message: event.detail,
+      data: null
+    };
+    moduleMap.error.configModule({
+      error_model: error
+    });
+    moduleMap.error.initModule( stateMap.container );
+
+  };
+
+  const onMessage = event => {
+    console.info(event.detail);
+
+  };
+
+  //routing for local event
+  //ここでイベントを捕捉する場合はschemaのどれかが最初に必要
+  //例:href='/blog/<pre>/<slug>'
+  const handleAnchorClick = event => {
+    var element = _.find(event.path, element => {
+      //constはundefinedを宣言できないのでvarで宣言
+      if (element.tagName === 'A') {
+        return element;
+      }
+    });
+    //console.info(element);
+    //element.classList.contains("someTag")
+    if(element) {
+      const hrefList = element.href.split('/'),
+        schema = _.intersection(hrefList, anchor_schema);
+
+      if(schema.length > 0) {
+        event.preventDefault();
+        const anchor = _.rest(hrefList, _.indexOf(hrefList, schema[0]));
+        spa.uriAnchor.setAnchor({page: anchor}, false);
+          
+      }
+    }
+  };
+
+  // app_idの監視
+  // urlの監視--schema以外のページ要求はエラーに誘導
+  // url履歴の管理
+  // 親履歴(anchor only)でリセット
+  // 新規の子履歴は追加
+  // 現在の履歴の後の履歴は削除
+  const onPopstate = event => {
+    try {
+      //アドレスバーのanchorを適正テスト後に取り出す
+      //引数はdefault_anchor,anchorがあればそれを優先
+      const anchor_map_proposed = spa.uriAnchor.makeAnchorMap('home');
+      //console.info(anchor_map_proposed);
+      const auth = spa.model.apps.get().appid;
+      if (auth === 'appspot') {
+        //apps未認証
+        spa.model.apps.identify(anchor_map_proposed.page);
+        return false;
+      } 
+
+      //認証済みを確認
+      const anchor = anchor_map_proposed.page[0];
+      const previous = testHistory(anchor_map_proposed.page)
+      moduleMap[anchor].configModule({
+        //各anchorで参照する汎用objectを先頭のconfigMapで宣言する
+        anchor: anchor_map_proposed,
+        previous: previous,
+      });
+
+      moduleMap[anchor].initModule( stateMap.container );
+
+      return true;
+    }
+    catch (error) {
+      //不適正なアドレスはエラー発生
+      console.info('annchor_map_error called');
+      moduleMap.error.configModule({
+        error_model: error
+      });
+      moduleMap.error.initModule( stateMap.container );
+      return false;
+    }
+  };
+
+  //-------------------- END EVENT HANDLERS --------------------
+
+  //---------------------- BEGIN CALLBACKS ---------------------
+  //----------------------- END CALLBACKS ---------------------
+
+  //------------------- BEGIN PUBLIC METHODS -------------------
+  //外部に公開するものを明示する
+  
+  const initModule = () => {
+    //ルーティング対象はすべてmoduleMapに組み込む
+    moduleMap.error = spa.error;
+    moduleMap.home = spa.home;
+    moduleMap.newist = spa.newist;
+    moduleMap.blog = spa.blog;
+    moduleMap.contact = spa.contact;
+    moduleMap.think = spa.think;
+    moduleMap.sample = spa.sample;
+
+    stateMap.container = document.getElementById('spa');
+    setDomMap();
+
+    //グローバルカスタムイベントのバインド
+    spa.gevent.subscribe( stateMap.container, 'spa-identify',  onIdentify);
+    spa.gevent.subscribe( stateMap.container, 'spa-error', onError );
+    spa.gevent.subscribe( stateMap.container, 'message-marked', onMessage);
+
+    // ローカルイベントのバインド
+    document.addEventListener('click', handleAnchorClick, false);
+
+    //callできるanchorを設定
+    spa.uriAnchor.setConfig(anchor_schema);
+
+    // Handle URI anchor change events.
+    window.addEventListener('popstate', onPopstate);
+
+    //再サーバ認証処理のためspa.modelにおいた
+    //window.dispatchEvent(new Event('popstate'))
+
+  };
+
+  
+  // End PUBLIC method /initModule/
+  //shellが公開するメソッド
+  return {
+    initModule: initModule,
+  };
+  //------------------- END PUBLIC METHODS ---------------------
+})();
