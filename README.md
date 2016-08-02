@@ -1,5 +1,5 @@
 ##Elabo Blog System Subscriber
-ブログの配信のみ行うサブシステムのテンプレートです。実際に自身のブログ<https://third-pen.com>で使用しているものです。
+ブログの配信のみ行うサブシステムのテンプレートです。実際に自身のブログ<https://thirdpen.com>で使用しているものです。
 ###Note
 単体で動作を確認する場合は、spa.model.jsのモックステータスをtrueにしてください。spa.fake.jsに用意したデータの範囲で動作を確認できます。  
 実際に動作させる場合は親システムであるElabo Blog Systemをご自分のアカウントでデプロイする必要があります。  
