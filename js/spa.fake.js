@@ -39,14 +39,14 @@ spa.fake = (function () {
 })();
 
 spa.fake.data = (() => {
-
+  const channel = 'think';
   return {
     identify: {
       appid: 'third-pen',
       token: 'thirdpen',
       anchor: '/home'
     },
-    newist: {
+    home: {
       publish: [
       {
         key: 'abcdef_slug',
@@ -55,7 +55,19 @@ spa.fake.data = (() => {
         slug: 'aboutme',
         excerpt: 'This is the mock data.',
         content: 'This is the mock data.',
-        channel: 'third-pen',
+        channel: 'home',
+        date: 'June 15, 2016',
+      }]},
+    tech: {
+      publish: [
+      {
+        key: 'abcdef_slug',
+        title: 'test-1',
+        tags: 'test',
+        slug: 'aboutme',
+        excerpt: 'This is the mock data.',
+        content: 'This is the mock data.',
+        channel: 'tech',
         date: 'June 15, 2016',
       },
       {
@@ -65,7 +77,7 @@ spa.fake.data = (() => {
         slug: 'slug',
         excerpt: 'This is the mock data.',
         content: 'This is the mock data.',
-        channel: 'third-pen',
+        channel: 'tech',
         date: 'June 15, 2016',
       },
       {
@@ -75,11 +87,42 @@ spa.fake.data = (() => {
         slug: 'slug',
         excerpt: 'This is the mock data.',
         content: 'This is the mock data.',
-        channel: 'third-pen',
+        channel: 'tech',
         date: 'June 15, 2016',
       }
-      ]
-    }
-  };
-
+      ]},
+    think: {
+      publish: [
+      {
+        key: 'abcdef_slug',
+        title: 'test-1',
+        tags: 'test',
+        slug: 'aboutme',
+        excerpt: 'This is the mock data.',
+        content: 'This is the mock data.',
+        channel: 'think',
+        date: 'June 15, 2016',
+      },
+      {
+        key: 'abcdef_slug',
+        title: 'test-2',
+        tags: 'test',
+        slug: 'slug',
+        excerpt: 'This is the mock data.',
+        content: 'This is the mock data.',
+        channel: 'think',
+        date: 'June 15, 2016',
+      },
+      {
+        key: 'abcdef_slug',
+        title: 'test-3',
+        tags: 'test',
+        slug: 'slug',
+        excerpt: 'This is the mock data.',
+        content: 'This is the mock data.',
+        channel: 'think',
+        date: 'June 15, 2016',
+      }
+      ]}
+    };
 })();

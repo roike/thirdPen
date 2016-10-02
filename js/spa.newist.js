@@ -26,11 +26,10 @@ spa.newist = (() => {
     },
     domMap = {};
   //定数はここで宣言
-  
+  const entry_model = spa.model.entry();
   //画面表示の件数
   const LIST_FETCH = 6;
   //公開モジュールを参照する場合はここで宣言
-  const entry_model = spa.model.entry('third-pen');
   //----END SCOPE VARIABLES-------------------------------- 
 
   //------------------- BEGIN UTILITY METHODS ------------------
@@ -102,44 +101,46 @@ spa.newist = (() => {
     
     // subscribe to custom_event
     spa.gevent.subscribe( stateMap.container, 'change-newist', onChangeNewist);
-    
     //ローカルイベントのバインド
     //stateMap.container.addEventListener('click', handleAnchorClick, false);
 
     //mdlイベントの再登録
     componentHandler.upgradeDom();
 
-    //anchor.page = [newist, tags, offset]
+    //anchor.page = [newist, channrl, tags, offset]
     const anchor = configMap.anchor;
     let params = {
       fetch: LIST_FETCH,
       tags: 'all',
+      channel: anchor.page[1],
       offset: 0
     }; 
     let key = 'newist';
     if (anchor.cache) key = 'current';
     
     switch(anchor.page.length) {
-      case 1:
+      case 2:
         //新着の初期値設定
         stateMap.offset = 0;
         stateMap.tags = 'all';
         break;
-      case 2:
+      case 3:
         //新着タグの初期値設定
         stateMap.offset = 0;
-        stateMap.tags = decodeURIComponent(anchor.page[1]);
+        stateMap.tags = decodeURIComponent(_.last(anchor.page));
         params.tags = stateMap.tags;
         break;
-      case 3:
+      case 4:
+        //page offsetの設定
         params.tags = stateMap.tags;
-        params.offset = anchor.page[2];
+        params.offset = _.last(anchor.page);
         break;
       default:
         console.info(anchor.page);
         return false;
     }
     //console.info(params);
+    
     entry_model[key](params);
 
   };

@@ -1,6 +1,6 @@
 #Blog公開用アプリケーション
 application: third-pen
-version: 1-32
+version: 1-43
 runtime: python27
 api_version: 1
 threadsafe: yes
@@ -30,8 +30,10 @@ skip_files:
 - ^(.*/)?\..*$
 #the above list is default
 - ^(.*/)?.*\.[tc]sv$
-- ^(.*/)?.*/test/.*$
-- ^(.*/)?.*/layout/.*$
+- ^(.*/)?.*.sh$
+- ^(.*/)?.*.md$
+- ^test$
+- ^layout$
 
 handlers:
 # App Engine serves and caches static files contained in the listed directories

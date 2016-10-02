@@ -14,7 +14,6 @@
 
 /*新規モジュールを追加する場合のtodo-------------------------
  * anchor_schemaに追加
- * moduleMapに追加
  * ---------------------
  *  Note:
  *  外部リンクはすべて制御下におく？
@@ -43,7 +42,7 @@ spa.shell = (() => {
   const
     //許可するanchorはここで宣言--モジュール名に一致
     anchor_schema = [
-      'newist', 'home', 'blog', 'contact', 'think', 'sample'
+      'newist', 'home', 'blog', 'contact', 'sample'
     ];
 
   //----------------- END MODULE SCOPE VARIABLES ---------------
@@ -191,13 +190,9 @@ spa.shell = (() => {
   const initModule = () => {
     //ルーティング対象はすべてmoduleMapに組み込む
     moduleMap.error = spa.error;
-    moduleMap.home = spa.home;
-    moduleMap.newist = spa.newist;
-    moduleMap.blog = spa.blog;
-    moduleMap.contact = spa.contact;
-    moduleMap.think = spa.think;
-    moduleMap.sample = spa.sample;
-
+    _.each(anchor_schema, ele => {
+      moduleMap[ele] = spa[ele];
+    });
     stateMap.container = document.getElementById('spa');
     setDomMap();
 

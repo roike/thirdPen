@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# third-pen main
+# thirdpen main
 # Copyright 2016 ryuji.oike@gmail.com
 # -----------------------------------------------------
 # Elabo Blog Systemの公開専用アプリ,単独では動作しない
@@ -15,7 +15,7 @@ bottle = Bottle()
 debug(True)
 
 #公開するanchorを設定する
-ALLOW_ANCHOR = ['home', 'newist', 'blog', 'contact', 'think', 'sample']
+ALLOW_ANCHOR = ['home', 'newist', 'blog', 'contact', 'sample']
 
 #Lets Encrypt Handler--If necessary
 #letsencryptのchallenge_keyとvalueを設定する
@@ -23,7 +23,7 @@ ALLOW_ANCHOR = ['home', 'newist', 'blog', 'contact', 'think', 'sample']
 def lets_encrypt_handler(challenge):
     response.content_type = 'text/plain'
     responses = {
-            'challenge_key': 'value'
+            'challenge-key': 'private-key'
             }
     #logging.info(challenge)
     return responses.get(challenge, '')
@@ -34,8 +34,10 @@ def lets_encrypt_handler(challenge):
 #anchorがなければtemplateでページ不在を知らせる<--未実装
 @bottle.route('/')
 @bottle.route('/<anchor>')
-@bottle.route('/<anchor>/<abcd>/<slug>')
-def init_anchor(anchor='home', abcd=None, slug=None):
+@bottle.route('/<anchor>/<channel>')
+@bottle.route('/<anchor>/<channel>/<tag>')
+@bottle.route('/<anchor>/<channel>/<tag>/<slug>')
+def init_anchor(anchor='home', channel=None, abcd=None, slug=None):
     if anchor in ALLOW_ANCHOR:
         return static_file('pen.html', root='./')
 

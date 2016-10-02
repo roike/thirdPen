@@ -1,5 +1,5 @@
 /*
- * third-pen spa.model.js
+ * thirdpen spa.model.js
  * Copyright 2016 ryuji.oike@gmail.com
  *-----------------------------------------------------------------
 */
@@ -28,7 +28,7 @@ spa.model = (() =>{
     entry: {list: null}
   };
 
-  //モックステータス--false-->fakeデータ使用
+  //モックステータス--true-->fakeデータ使用
   const isFakeData = false;
 
   //インスタンスオブジェクト------------------------
@@ -89,11 +89,12 @@ spa.model = (() =>{
 
   })();
 
-  const Entry = channel => {
+  const Entry = () => {
     const ajax = isFakeData ? spa.fake.mockAjax : spa.data.getAjax;
     const custom = {
-      'third-pen': 'change-newist',
-      'oike-blog': 'change-think',
+      'tech': 'change-newist',
+      'think': 'change-newist',
+      'github': 'change-newist',
       'sample': 'change-sample',
       'home': 'change-home'
     };
@@ -102,13 +103,11 @@ spa.model = (() =>{
     //params={token:,channel:,tags:,fetch:,offset:}
     const newist = params => {
       params['appid'] = stateMap.apps.appid;
-      params['channel'] = channel;
       params['token'] = stateMap.apps.token;
-      ajax.post('https://elabo-one.appspot.com/thirdpen/newist', params)
-        .then(response => {
-          const data = response;
+      ajax.post(`https://elabo-one.appspot.com/thirdpen/${params.channel}`, params)
+        .then(data => {
           stateMap.entry.list = data.publish;
-          spa.gevent.publish(custom[channel], data.publish);
+          spa.gevent.publish(custom[params.channel], data.publish);
         })
         .catch(error => {
           console.info(error);
@@ -122,7 +121,7 @@ spa.model = (() =>{
     };
 
     const current = params => {
-      spa.gevent.publish(custom[channel], stateMap.entry.list);
+      spa.gevent.publish(custom[params.channel], stateMap.entry.list);
     };
 
 

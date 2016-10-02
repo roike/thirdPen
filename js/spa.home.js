@@ -31,7 +31,7 @@ spa.home = (() => {
   //画面表示の件数
   const LIST_FETCH = 31;
   //公開モジュールを参照する場合はここで宣言
-  const entry_model = spa.model.entry('home');
+  const entry_model = spa.model.entry();
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
@@ -96,9 +96,11 @@ spa.home = (() => {
     const params = {
       fetch: LIST_FETCH,
       tags: stateMap.tags,
+      channel: 'home',
       offset: stateMap.offset
     };
 
+    //channel=home,tag=thirdpen<----コンテンツを特定する
     entry_model.newist(params);
   };
 
