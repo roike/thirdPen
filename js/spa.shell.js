@@ -51,22 +51,35 @@ spa.shell = (() => {
   const makeError = spa.util.makeError;
   const testHistory = page => {
     //page=[schema,,,]
+    //現在のurl履歴を登録する
+    //戻るリンクの不適切な循環を防止する
+    //ひとつ前の画面==stateMap.anchor_map[idx-1]
+    //anchorを飛ばしたページを格納する場合はanchorを先に組み込む
     const pageHistory = page.join('_');
     let idx = stateMap.anchor_map.indexOf(pageHistory);
-    if (page.length == 1) {
+    if (anchor_schema.indexOf(pageHistory) > -1) {
+      //moduleの切り替えなので履歴を初期化する
       stateMap.anchor_map = [pageHistory];
       idx = 0;
     }
     else if (idx == -1) {
+      //pageHistoryに未格納なので追加する
+      //anchorを飛ばした場合は組み込む
+      if (stateMap.anchor_map.indexOf(page[0]) == -1) {
+        stateMap.anchor_map.push(page[0]);
+      }
       stateMap.anchor_map.push(pageHistory);
       idx = stateMap.anchor_map.length - 1;
     }
     else if (stateMap.anchor_map.length - idx > 1) {
+      //同じものがある場合は循環を避けるために後順位を捨てる
+      //例:[ab, abc, abcd]の時にabcが来たら[ab, abc]としてabcdを捨てる
       stateMap.anchor_map = stateMap.anchor_map.slice(0, idx + 1);
     } else {
-      //想定外ケースの発生
-      console.info(page.toString());
+      //(stateMap.anchor_map.length - idx == 1 -->重複クリック
+      console.info('lastIndex is same: %s', pageHistory);
     }
+    //ひとつ前の画面のページ配列をunderbarで連結する 
     return idx == 0 ? null : stateMap.anchor_map[idx-1].split('_');
   };
 
@@ -170,7 +183,7 @@ spa.shell = (() => {
     }
     catch (error) {
       //不適正なアドレスはエラー発生
-      console.info('annchor_map_error called');
+      console.info(error);
       moduleMap.error.configModule({
         error_model: error
       });
@@ -194,7 +207,7 @@ spa.shell = (() => {
       moduleMap[ele] = spa[ele];
     });
     stateMap.container = document.getElementById('spa');
-    setDomMap();
+    //setDomMap();
 
     //グローバルカスタムイベントのバインド
     spa.gevent.subscribe( stateMap.container, 'spa-identify',  onIdentify);

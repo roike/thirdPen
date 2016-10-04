@@ -25,7 +25,7 @@ spa.model = (() =>{
   let stateMap = {
     apps: null,
     blog: {template: null},
-    entry: {list: null}
+    entry: {}
   };
 
   //モックステータス--true-->fakeデータ使用

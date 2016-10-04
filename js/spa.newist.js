@@ -21,8 +21,6 @@ spa.newist = (() => {
     stateMap  = {
       //ローカルキャッシュはここで宣言
       container: null,
-      offset: 0,
-      tags: 'all'
     },
     domMap = {};
   //定数はここで宣言
@@ -33,17 +31,13 @@ spa.newist = (() => {
   //----END SCOPE VARIABLES-------------------------------- 
 
   //------------------- BEGIN UTILITY METHODS ------------------
-  const okikae = spa.util.okikae;
   //-------------------- END UTILITY METHODS -------------------
 
   //--------------------- BEGIN DOM METHODS --------------------
   //DOMメソッドにはページ要素の作成と操作を行う関数を配置
   //可読性のためtarget elementは分散させずにここで宣言
   const setDomMap = () => {
-    domMap = {
-      newist: document.getElementById('entry-contents'),
-      more: document.getElementById('newist-more')
-    };
+    domMap = {};
   };
 
 
@@ -51,35 +45,41 @@ spa.newist = (() => {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
 
-  //リストの再描画
-  const onChangeNewist = event => {
+  //記事リストの表示
+  const loadNewist = event => {
     const newist = event.detail;
-    const html = newist.map(({key, title, excerpt, date, tags}) =>
-        okikae(
-          `<div class="newist-section mdl-card__supporting-text">
+    let [channel, tag, offset] = _.rest(configMap.anchor.page);
+    const html = newist.map(({key, title, excerpt, date, channel, tags}) => {
+      let href = `/blog/${key.split('_').join('/')}`;
+      return `
+          <div class="newist-section mdl-card__supporting-text">
            <section>
-             <h3><a href="%s">${title}</a></h3>
+             <h3><a href="${href}">${title}</a></h3>
              <p>${excerpt}</p>
              <footer class="mdl-mini-footer">
-               <span><a href="/newist/${tags}">${tags}</a> | ${date}</span>
+               <span><a href="/newist/${channel}/${tags}">${tags}</a> | ${date}</span>
              </footer>
            </section>
-          </div>`,
-          () => {
-            let [a, b] = key.split('_');
-            return `/blog/${a}/${b}`;
-          })).join('');
+          </div>`;
+          }).join('');
 
-    domMap.newist.innerHTML = html;
-    const offset = stateMap.offset + entry_model.list().length;
-    //console.info(offset);
-    if (offset === stateMap.offset || offset % LIST_FETCH > 0) {
-      domMap.more.innerText = 'No More';
+    offset = offset||0;
+    let message = 'show more';
+    let more;
+    const newoffset = offset + entry_model.list().length;
+    if (newoffset == offset || newoffset % LIST_FETCH > 0) {
+      message = 'No More';
+      more = `/newist/${channel}/${tag||'all'}/${offset}`;
     } else {
-      domMap.more.href = okikae('/newist/%s/%s', stateMap.tags, offset);
-      stateMap.offset = offset;
+      more = `/newist/${channel}/${tag||'all'}/${newoffset}`;
     }
+    stateMap.container.innerHTML = spa.newist.template([more, message, html]);
+    
+    //ローカルイベントのバインド
+    //stateMap.container.addEventListener('click', handleAnchorClick, false);
 
+    //mdlイベントの再登録
+    componentHandler.upgradeDom();
   };
 
   
@@ -95,51 +95,23 @@ spa.newist = (() => {
 
   // Begin public method /initModule/
   const initModule = container => {
-    container.innerHTML = spa.newist.template;
-    stateMap.container = document.getElementById('newist-container');
-    setDomMap();
-    
-    // subscribe to custom_event
-    spa.gevent.subscribe( stateMap.container, 'change-newist', onChangeNewist);
-    //ローカルイベントのバインド
-    //stateMap.container.addEventListener('click', handleAnchorClick, false);
-
-    //mdlイベントの再登録
-    componentHandler.upgradeDom();
-
-    //anchor.page = [newist, channrl, tags, offset]
-    const anchor = configMap.anchor;
-    let params = {
+    //anchor.page = [newist, channel, tags, offset]
+    const [channel, tag, offset] = _.rest(configMap.anchor.page);
+    const params = {
       fetch: LIST_FETCH,
-      tags: 'all',
-      channel: anchor.page[1],
-      offset: 0
-    }; 
+      tags: tag||'all',
+      channel: channel,
+      offset: offset||0
+    };
+    stateMap.container = container;
+    // subscribe to custom_event
+    spa.gevent.subscribe( stateMap.container, 'change-newist', loadNewist);
+    //ローカルイベントのバインド
+
+    //pagingnation ------------------- 
     let key = 'newist';
-    if (anchor.cache) key = 'current';
-    
-    switch(anchor.page.length) {
-      case 2:
-        //新着の初期値設定
-        stateMap.offset = 0;
-        stateMap.tags = 'all';
-        break;
-      case 3:
-        //新着タグの初期値設定
-        stateMap.offset = 0;
-        stateMap.tags = decodeURIComponent(_.last(anchor.page));
-        params.tags = stateMap.tags;
-        break;
-      case 4:
-        //page offsetの設定
-        params.tags = stateMap.tags;
-        params.offset = _.last(anchor.page);
-        break;
-      default:
-        console.info(anchor.page);
-        return false;
-    }
-    //console.info(params);
+    if (configMap.anchor.cache) key = 'current';
+    console.info(params);
     
     entry_model[key](params);
 
@@ -153,7 +125,7 @@ spa.newist = (() => {
   //------------------- END PUBLIC METHODS ---------------------
 })();
 
-spa.newist.template = (() => {
+spa.newist.template = ([more, message, html]) => {
   return `
     <article id="newist-container">
       <div class="newist-content mdl-grid">
@@ -161,10 +133,10 @@ spa.newist.template = (() => {
           <div class="mdl-card__title">
              <h2>新着エントリ</h2>
           </div>
-          <div id="entry-contents"></div>
+          <div>${html}</div>
         </div>
         <nav class="newist-nav mdl-cell mdl-cell--12-col">
-          <a href="/newist/all" id="newist-more" title="show more">
+          <a href="${more}" title="${message}">
             More
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
               <i class="material-icons" role="presentation">arrow_forward</i>
@@ -173,4 +145,4 @@ spa.newist.template = (() => {
         </nav>
       </div>
     </article>`;
-})();
+};
