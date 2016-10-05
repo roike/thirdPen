@@ -55,7 +55,8 @@ spa.fake.data = (() => {
         excerpt: 'This is the mock data.',
         content: 'This is the mock data.',
         channel: 'home',
-        date: 'June 15, 2016'
+        date: 'June 15, 2016',
+        initdate: 'May 15, 2016'
       }]},
     tech: {
       publish: [
@@ -67,7 +68,8 @@ spa.fake.data = (() => {
         excerpt: 'This is the mock data.',
         content: 'This is the mock data.',
         channel: 'tech',
-        date: 'June 15, 2016'
+        date: 'June 15, 2016',
+        initdate: 'May 15, 2016'
       },
       {
         key: 'abcdef_slug',
@@ -77,7 +79,8 @@ spa.fake.data = (() => {
         excerpt: 'This is the mock data.',
         content: 'This is the mock data.',
         channel: 'tech',
-        date: 'June 15, 2016'
+        date: 'June 15, 2016',
+        initdate: 'May 15, 2016'
       },
       {
         key: 'abcdef_slug',
@@ -87,7 +90,8 @@ spa.fake.data = (() => {
         excerpt: 'This is the mock data.',
         content: 'This is the mock data.',
         channel: 'tech',
-        date: 'June 15, 2016'
+        date: 'June 15, 2016',
+        initdate: 'May 15, 2016'
       }
       ]},
     think: {
@@ -100,7 +104,8 @@ spa.fake.data = (() => {
         excerpt: 'This is the mock data.',
         content: 'This is the mock data.',
         channel: 'think',
-        date: 'June 15, 2016'
+        date: 'June 15, 2016',
+        initdate: 'May 15, 2016'
       },
       {
         key: 'abcdef_slug',
@@ -110,7 +115,8 @@ spa.fake.data = (() => {
         excerpt: 'This is the mock data.',
         content: 'This is the mock data.',
         channel: 'think',
-        date: 'June 15, 2016'
+        date: 'June 15, 2016',
+        initdate: 'May 15, 2016'
       },
       {
         key: 'abcdef_slug',
@@ -120,6 +126,7 @@ spa.fake.data = (() => {
         excerpt: 'This is the mock data.',
         content: 'This is the mock data.',
         channel: 'think',
+        initdate: 'May 15, 2016',
         date: 'June 15, 2016'
       }
       ]}

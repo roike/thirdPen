@@ -37,7 +37,7 @@ def lets_encrypt_handler(challenge):
 @bottle.route('/<anchor>/<channel>')
 @bottle.route('/<anchor>/<channel>/<tag>')
 @bottle.route('/<anchor>/<channel>/<tag>/<slug>')
-def init_anchor(anchor='home', channel=None, abcd=None, slug=None):
+def init_anchor(anchor='home', channel=None, tag=None, slug=None):
     if anchor in ALLOW_ANCHOR:
         return static_file('pen.html', root='./')
 

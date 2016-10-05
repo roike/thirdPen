@@ -49,7 +49,7 @@ spa.newist = (() => {
   const loadNewist = event => {
     const newist = event.detail;
     let [channel, tag, offset] = _.rest(configMap.anchor.page);
-    const html = newist.map(({key, title, excerpt, date, channel, tags}) => {
+    const html = newist.map(({key, title, excerpt, date, initdate, channel, tags}) => {
       let href = `/blog/${key.split('_').join('/')}`;
       return `
           <div class="newist-section mdl-card__supporting-text">
@@ -58,6 +58,7 @@ spa.newist = (() => {
              <p>${excerpt}</p>
              <footer class="mdl-mini-footer">
                <span><a href="/newist/${channel}/${tags}">${tags}</a> | ${date}</span>
+               <span>初稿${initdate}</span>
              </footer>
            </section>
           </div>`;
