@@ -47,9 +47,15 @@ spa.blog = (() => {
   const onBack = event => {
     event.stopPropagation();
     //templateはキャッシュから取り出す
+    //記事のアドレスを個別にGetした場合はprevious=blogなので
+    //newist/techに置き換える
     const previous = configMap.previous;
     if (previous) {
-      spa.uriAnchor.setAnchor({page: previous, cache: true }, false);
+      if (previous[0] === 'blog') {
+        spa.uriAnchor.setAnchor({page: ['newist', 'tech'], cache: false }, false);
+      } else {
+        spa.uriAnchor.setAnchor({page: previous, cache: true }, false);
+      }
     }
   };
   

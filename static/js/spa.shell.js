@@ -42,7 +42,7 @@ spa.shell = (() => {
   const
     //許可するanchorはここで宣言--モジュール名に一致
     anchor_schema = [
-      'newist', 'home', 'blog', 'contact', 'sample'
+      'newist', 'home', 'blog', 'contact'
     ];
 
   //----------------- END MODULE SCOPE VARIABLES ---------------
