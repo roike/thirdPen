@@ -1,5 +1,6 @@
 /*
  * third-pen spa.blog.js
+ * See License
  *-----------------------------------------------------------------
 */
 
@@ -21,6 +22,7 @@ spa.blog = (() => {
     stateMap  = {
       //ローカルキャッシュはここで宣言
       container: null,
+      selfChannel: null
     },
     domMap = {};
   //定数はここで宣言
@@ -52,7 +54,7 @@ spa.blog = (() => {
     const previous = configMap.previous;
     if (previous) {
       if (previous[0] === 'blog') {
-        spa.uriAnchor.setAnchor({page: ['newist', 'tech'], cache: false }, false);
+        spa.uriAnchor.setAnchor({page: ['newist', stateMap.selfChannel], cache: false }, false);
       } else {
         spa.uriAnchor.setAnchor({page: previous, cache: true }, false);
       }
@@ -61,6 +63,7 @@ spa.blog = (() => {
   
   const onLoad = event => {
     const embed = event.detail;
+    stateMap.selfChannel = embed.channel;
     stateMap.container.innerHTML = spa.blog.template(embed);
     setDomMap();
     
@@ -89,7 +92,7 @@ spa.blog = (() => {
     stateMap.container = document.getElementById('blog-container');
 
     //グローバルカスタムイベントのバインド
-    spa.gevent.subscribe( stateMap.container, 'load-blog',  onLoad  );
+    spa.gevent.subscribe( 'spa', 'load-blog',  onLoad  );
 
     blog_model.load(configMap.anchor.page);
 

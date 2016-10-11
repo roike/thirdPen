@@ -1,6 +1,6 @@
 #Blog公開用アプリケーション
 application: third-pen
-version: 1-55
+version: 1-59
 runtime: python27
 api_version: 1
 threadsafe: yes
@@ -39,8 +39,8 @@ handlers:
 # App Engine serves and caches static files contained in the listed directories
 # (and subdirectories). Uncomment and set the directory as needed.
 - url: /icon.png
-  static_files: static/icon.png
-  upload: static/icon.png
+  static_files: static/images/icon.png
+  upload: static/images/icon.png
 - url: /css
   static_dir: static/css
 - url: /images
@@ -54,7 +54,7 @@ handlers:
 # secure: always -->in case of only to allow https access
 - url: .*  # This regex directs all routes to main.bottle
   script: main.bottle
-  #secure: always
+  secure: always
 # Third party libraries that are included in the App Engine SDK must be listed
 # here if you want to use them.  See
 # https://developers.google.com/appengine/docs/python/tools/libraries27 for

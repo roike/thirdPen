@@ -1,6 +1,6 @@
 /*
  * thirdpen spa.shell.js
- * Copyright 2016 ryuji.oike@gmail.com
+ * See License
  * -----------------------------------------------------------------
 */
 
@@ -137,8 +137,8 @@ spa.shell = (() => {
     //console.info(element);
     //element.classList.contains("someTag")
     if(element) {
-      const hrefList = element.href.split('/'),
-        schema = _.intersection(hrefList, anchor_schema);
+      const hrefList = element.href.split('/');
+      const schema = _.intersection(hrefList, anchor_schema);
 
       if(schema.length > 0) {
         event.preventDefault();
@@ -210,9 +210,10 @@ spa.shell = (() => {
     //setDomMap();
 
     //グローバルカスタムイベントのバインド
-    spa.gevent.subscribe( stateMap.container, 'spa-identify',  onIdentify);
-    spa.gevent.subscribe( stateMap.container, 'spa-error', onError );
-    spa.gevent.subscribe( stateMap.container, 'message-marked', onMessage);
+    spa.gevent.initModule('spa', stateMap.container);
+    spa.gevent.subscribe( 'spa', 'spa-identify',  onIdentify);
+    spa.gevent.subscribe( 'spa', 'spa-error', onError );
+    spa.gevent.subscribe( 'spa', 'message-marked', onMessage);
 
     // ローカルイベントのバインド
     document.addEventListener('click', handleAnchorClick, false);

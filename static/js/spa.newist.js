@@ -1,6 +1,6 @@
 /*
  * thirdpen spa.newist.js
- * Copyright 2016 ryuji.oike@gmail.com
+ * See License
  *-----------------------------------------------------------------
 */
 
@@ -106,13 +106,13 @@ spa.newist = (() => {
     };
     stateMap.container = container;
     // subscribe to custom_event
-    spa.gevent.subscribe( stateMap.container, 'change-newist', loadNewist);
+    spa.gevent.subscribe( 'spa', 'change-newist', loadNewist);
     //ローカルイベントのバインド
 
     //pagingnation ------------------- 
     let key = 'newist';
     if (configMap.anchor.cache) key = 'current';
-    console.info(params);
+    //console.info(params);
     
     entry_model[key](params);
 
