@@ -184,15 +184,12 @@ pre {
     display: block;
   }
 
-  .mdl-layout__content {
-    padding: 0;
-  }
-
   .nav-large {
     display: none;
   }
 
   #spa {
+    padding-left: 0;
     margin: 0;
     width: 100%;
   }
