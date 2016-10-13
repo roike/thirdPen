@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   thirdpen pen.html
-  Copyright 2016 ryuji.oike@gmail.com
+  See License
 -->
 <html lang="ja">
 <head>
@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosansjapanese.css" type="text/css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.cyan-light_blue.min.css">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.grey-pink.min.css">
   <link rel="stylesheet" href="/css/spa.css" type="text/css"/>
   <link rel="stylesheet" href="/css/spa.shell.css" type="text/css"/>
   <link rel="stylesheet" href="/css/spa.error.css" type="text/css"/>
@@ -59,49 +59,46 @@
         <div class="mdl-layout-spacer"></div>
       </div>
     </header>
+    <div class="mdl-layout__drawer mdl-layout--small-screen-only">
+      <nav class="mdl-navigation">
+        <h2>Thirdpenナビゲーション</h2>
+        <a href="/newist/think" class="mdl-navigation__link">What have in mind?</a>
+        <a href="/newist/github" class="mdl-navigation__link">公開アプリ</a>
+        <a href="/newist/tech" class="mdl-navigation__link">新着エントリ</a>
+        <a href="/contact" class="mdl-navigation__link">開発お問い合わせ</a>
+        <a href="/home" class="mdl-navigation__link">About me</a>
+      </nav>
+    </div>
     <main class="mdl-layout__content">
       <div class="thirdpen-banner"></div>
-      <div class="mdl-layout__drawer">
-        <nav class="mdl-navigation">
-          <h2>Thirdpenナビゲーション</h2>
-          <a href="/newist/think" class="mdl-navigation__link">What have in mind?</a>
-          <a href="/newist/github" class="mdl-navigation__link">公開アプリ</a>
-          <a href="/newist/tech" class="mdl-navigation__link">新着エントリ</a>
-          <a href="/contact" class="mdl-navigation__link">開発お問い合わせ</a>
-          <a href="/home" class="mdl-navigation__link">About me</a>
-        </nav>
-      </div>
-      <div class="mdl-layout__drawer mdl-layout--small-screen-only">
-        <nav class="mdl-navigation">
-          <h2>Thirdpenナビゲーション</h2>
-          <a href="/newist/think" class="mdl-navigation__link">What have in mind?</a>
-          <a href="/newist/github" class="mdl-navigation__link">公開アプリ</a>
-          <a href="/newist/tech" class="mdl-navigation__link">新着エントリ</a>
-          <a href="/contact" class="mdl-navigation__link">開発お問い合わせ</a>
-          <a href="/home" class="mdl-navigation__link">About me</a>
-        </nav>
-      </div>
+      <nav class="nav-large">
+        <h2>Thirdpenナビゲーション</h2>
+        <a href="/newist/think" class="mdl-navigation__link">What have in mind?</a>
+        <a href="/newist/github" class="mdl-navigation__link">公開アプリ</a>
+        <a href="/newist/tech" class="mdl-navigation__link">新着エントリ</a>
+        <a href="/contact" class="mdl-navigation__link">開発お問い合わせ</a>
+        <a href="/home" class="mdl-navigation__link">About me</a>
+      </nav>
       <div id="spa"></div> 
-    </main>
-    <section>
-      <footer class="mdl-mini-footer">
-        <h2>Thirdpenフッター</h2>
-        <div class="mdl-mini-footer--left-section">
-          <div class="mdl-logo">
-            <a class="thirdpen-logo-link" href="/home">
-              <img class="thirdpen-logo"
-                 alt="ThirdPen logo"
-                 src="/images/moji.svg">
-            </a>
+      <section>
+        <footer class="mdl-mini-footer">
+          <h2>Thirdpenフッター</h2>
+          <div class="mdl-mini-footer--left-section">
+            <div class="mdl-logo">
+              <a class="thirdpen-logo-link" href="/home">
+                <img class="thirdpen-logo"
+                   alt="ThirdPen logo"
+                   src="/images/moji.svg">
+              </a>
+            </div>
+            <ul class="mdl-mini-footer--link-list">
+              <li><span class="logo-define">GAE Technology Blog</span></li>
+              <li><span class="logo-define">Copyright RyujiOike. 2016 All rights reserved.</span></li>
+            </ul>
           </div>
-          <ul class="mdl-mini-footer--link-list">
-            <li><span class="logo-define">Google App Engine Technology Blog</span></li>
-            <li><span class="logo-define">Copyright RyujiOike. 2016 All rights reserved.</span></li>
-            <li><a href="">Privacy</a></li>
-          </ul>
-        </div>
-      </footer>
-    </section>
+        </footer>
+      </section>
+    </main>
   </div>
 </body>
 </html>

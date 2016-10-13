@@ -34,23 +34,17 @@ a {
 }
 a:link, a:visited { color : inherit; }
 a:hover { text-decoration: underline; }
-
 html, body {
   background: #F5F5F5;
+}
+html, body, th, td, p, h1, h2, h3, h4, h5, h6 {
   color: #757575;
   font-size: 14px;
   font-family: Roboto, 'Noto Sans Japanese', sans-serif;
   /*font-family: Roboto, "游ゴシック", YuGothic, "Hiragino Kaku Gothic ProN", Meiryo, Helvetica, Arial, sans-serif;*/
 }
 
-img {
-  border: 0;
-}
-
 /*---mdl modify section-----------------*/
-.mdl-layout {
-  display: block;
-}
 
 .mdl-layout__header, .mdl-mini-footer {
   background: #FFF;
@@ -79,20 +73,23 @@ img {
   padding-left: 18px;
 }
 
-.mdl-layout__drawer {
+.mdl-layout__content {
+  width: 100%;
+}
+.nav-large {
+  position: absolute;
   background: none;
   box-shadow: none;
   border: none;
   height: auto;
-  top: 320px;
-  transform: none;
+  top: 420px;
+  left: 20px;
 }
-.mdl-layout__content {
-  padding-left: 250px;
-  width: 100%;
+.nav-large a {
+  display: block;
+  height: 30px;
 }
 
-/*---my section-------------*/
 h1, h2, h3, h4, h5, h6 {
   margin: 5px 0;
   color: #616161;
@@ -115,11 +112,12 @@ nav h2, footer h2 {
 
 #spa {
   min-height: calc(100vh - 164px);  /* 100vh - 64px header - 100px footer */
+  padding-left: 200px;
 }
 
 .thirdpen-logo {
   height: 48px;
-  margin-right: 12px;
+  margin-right: 15px;
 }
 .thirdpen-banner {
   background: #F5F5F5 url(/images/banner@1.5x.png);
@@ -145,7 +143,6 @@ nav h2, footer h2 {
 }
 
 .shell-head-search {color: #757575;}
-
 /*------- github css-----------------*/
 blockquote {
   margin: 15px 0;
@@ -181,7 +178,7 @@ pre {
     background-color: transparent;
     border: none; }
 
-/* -----Responsive layout----------- */
+/* -----Responsive layout-----------*/
 @media screen and (max-width: 850px) {
   .mdl-layout__header {
     display: block;
@@ -191,7 +188,7 @@ pre {
     padding: 0;
   }
 
-  .mdl-navigation {
+  .nav-large {
     display: none;
   }
 
@@ -203,9 +200,5 @@ pre {
   .mdl-mini-footer--link-list {
     margin-left: 0;
   }
-}
-
-@media screen and (max-width: 1024px) {
-  
 }
 

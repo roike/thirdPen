@@ -31,11 +31,10 @@ spa.gevent = (() => {
     event = new CustomEvent(event_name, {detail: data});
     event_obj.dispatchEvent(event);
 
-    return true;
   };
 
   //event_nameは競合不可
-  const subscribeEvent = function ( id, event_name, fn ) {
+  const subscribeEvent = ( id, event_name, fn ) => {
     //console.info('bind collection %s', collection);
     if ( _.has(customEventDict, event_name) ){
       delete customEventDict[ event_name ];
@@ -47,12 +46,11 @@ spa.gevent = (() => {
     //console.info(customEventDict);
   };
 
-  const unsubscribeEvent = function ( id, event_name ) {
+  const unsubscribeEvent = ( id, event_name ) => {
     if ( _.has(customEventDict, event_name) ){
       delete customEventDict[ event_name ];
     }
 
-    return true;
   };
 
   const initModule = (id, dom) => {
