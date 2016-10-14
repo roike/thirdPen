@@ -153,7 +153,6 @@ spa.model = (() =>{
   const initModule = () => {
     //userオブジェクト初期値生成-->初期値-->name='00'-->ログイン未確認
     stateMap.apps = { appid: 'appspot'};
-    window.dispatchEvent(new Event('popstate'));
   };
 
   return {
