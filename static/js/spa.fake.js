@@ -1,6 +1,6 @@
 /*
  * thirdpen spa.fake.js
- * Copyright 2016 ryuji.oike@gmail.com
+ * See License
  */
 
 /*jslint         browser : true, continue : true,
@@ -15,7 +15,15 @@ spa.fake = (function () {
   'use strict';
 
   const mockAjax = (() => {
-    const mockGet = () => {};
+    const mockGet = url => {
+      const pageList = url.split('/');
+      const tindex = pageList.indexOf('thirdpen') + 1;
+      const mockKey = pageList[tindex];
+      return new Promise((resolve, reject) => {
+        resolve(spa.fake.data[mockKey]);
+        reject();
+      });
+    };
 
     const mockPost = (url, params) => {
       const mockKey = _.last(url.split('/'));

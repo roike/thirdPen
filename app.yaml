@@ -1,6 +1,6 @@
 #Blog公開用アプリケーション
 application: third-pen
-version: 1-64
+version: 1-68
 runtime: python27
 api_version: 1
 threadsafe: yes

@@ -61,16 +61,16 @@ spa.model = (() =>{
     const load = page => {
       //page = configMap.anchor.page
       const url = 'https://elabo-one.appspot.com/thirdpen/' + page.join('/');
-      const params = {appid: stateMap.apps.appid, token: stateMap.apps.token };
-      console.info(params);
-      ajax.post(url, params)
+      ajax.get(url, {}, stateMap.apps.token )
         .then(data => {
           spa.gevent.publish('load-blog', data.publish);
         })
         .catch(error => {
           console.info(error);
           //認証違反は再認証
-          if(_.has(error, 'status') && error.status === '403') {
+          if(_.has(error, 'status') && error.status === '401') {
+            initModule();
+          } else if(_.has(error, 'status') && error.status === '403') {
             initModule();
           } else {
             spa.gevent.publish('spa-error', error);
@@ -95,16 +95,13 @@ spa.model = (() =>{
       'tech': 'change-newist',
       'think': 'change-newist',
       'github': 'change-newist',
-      'sample': 'change-sample',
       'home': 'change-home'
     };
 
     //blog新着リスト--6件単位で取り出す
-    //params={token:,channel:,tags:,fetch:,offset:}
     const newist = params => {
-      params['appid'] = stateMap.apps.appid;
-      params['token'] = stateMap.apps.token;
-      ajax.post(`https://elabo-one.appspot.com/thirdpen/${params.channel}`, params)
+      const url = `https://elabo-one.appspot.com/thirdpen/${params.channel}/${params.tags}/${params.offset}`;
+      ajax.get(url, {fetch: params.fetch}, stateMap.apps.token)
         .then(data => {
           stateMap.entry.list = data.publish;
           spa.gevent.publish(custom[params.channel], data.publish);
@@ -112,7 +109,9 @@ spa.model = (() =>{
         .catch(error => {
           console.info(error);
           //認証違反は再認証
-          if(_.has(error, 'status') && error.status === '403') {
+          if(_.has(error, 'status') && error.status === '401') {
+            initModule();
+          } else if(_.has(error, 'status') && error.status === '403') {
             initModule();
           } else {
             spa.gevent.publish('spa-error', error);

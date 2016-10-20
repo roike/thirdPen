@@ -1,6 +1,6 @@
 /*
  * third-pen spa.home.js
- * Copyright 2016 ryuji.oike@gmail.com
+ * See License
  *-----------------------------------------------------------------
 */
 
