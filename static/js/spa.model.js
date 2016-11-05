@@ -95,6 +95,7 @@ spa.model = (() =>{
       'tech': 'change-newist',
       'think': 'change-newist',
       'github': 'change-newist',
+      'euler': 'change-newist',
       'home': 'change-home'
     };
 

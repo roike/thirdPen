@@ -34,9 +34,8 @@ def lets_encrypt_handler(challenge):
 #anchorがなければtemplateでページ不在を知らせる<--未実装
 @bottle.route('/')
 @bottle.route('/<anchor>')
-@bottle.route('/<anchor>/<channel>')
-@bottle.route('/<anchor>/<channel>/<tag>/<offsetslug>')
-def init_anchor(anchor='home', channel=None, tag=None, offsetslug=None):
+@bottle.route('/<anchor>/<:re:.*>')
+def init_anchor(anchor='home'):
     if anchor in ALLOW_ANCHOR:
         return static_file('pen.html', root='./static')
 

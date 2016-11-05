@@ -31,6 +31,7 @@ spa.newist = (() => {
   //----END SCOPE VARIABLES-------------------------------- 
 
   //------------------- BEGIN UTILITY METHODS ------------------
+  const converter = new showdown.Converter({extensions: ['mathExt']});
   //-------------------- END UTILITY METHODS -------------------
 
   //--------------------- BEGIN DOM METHODS --------------------
@@ -51,11 +52,12 @@ spa.newist = (() => {
     let [channel, tag, offset] = _.rest(configMap.anchor.page);
     const html = newist.map(({key, title, excerpt, date, initdate, channel, tags}) => {
       let href = `/blog/${key.split('_').join('/')}`;
+      excerpt = converter.makeHtml(excerpt);
       return `
           <div class="newist-section mdl-card__supporting-text">
            <section>
              <h3><a href="${href}">${title}</a></h3>
-             <p>${excerpt}</p>
+             ${excerpt}
              <footer class="mdl-mini-footer">
                <span><a href="/newist/${channel}/${tags}">${tags}</a> | ${date}</span>
                <span>初稿${initdate}</span>

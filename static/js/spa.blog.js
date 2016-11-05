@@ -32,6 +32,7 @@ spa.blog = (() => {
   //----END SCOPE VARIABLES------------------------------------- 
 
   //------------------- BEGIN UTILITY METHODS ------------------
+  const converter = new showdown.Converter({extensions: ['mathExt']});
   //-------------------- END UTILITY METHODS -------------------
 
   //--------------------- BEGIN DOM METHODS --------------------
@@ -64,7 +65,9 @@ spa.blog = (() => {
   const onLoad = event => {
     const embed = event.detail;
     stateMap.selfChannel = embed.channel;
+    embed.content = converter.makeHtml(embed.content);
     stateMap.container.innerHTML = spa.blog.template(embed);
+    spa.mathjax.update();
     setDomMap();
     
     //ローカルイベントのバインド
