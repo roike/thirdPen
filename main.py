@@ -1,11 +1,8 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # thirdpen main
 # See License
 # -----------------------------------------------------
-# Elabo Blog Systemの公開専用アプリ,単独では動作しない
 
-from google.appengine.api import app_identity, urlfetch, taskqueue
 from bottle import Bottle, debug, request, response, static_file, abort
 import logging
 from json import loads
@@ -16,18 +13,6 @@ debug(True)
 
 #公開するanchorを設定する
 ALLOW_ANCHOR = ['home', 'newist', 'blog', 'contact']
-
-#Lets Encrypt Handler--If necessary
-#letsencryptのchallenge_keyとvalueを設定する
-@bottle.route('/.well-known/acme-challenge/:challenge')
-def lets_encrypt_handler(challenge):
-    response.content_type = 'text/plain'
-    responses = {
-            'challenge-key': 'private-key'
-            }
-    #logging.info(challenge)
-    return responses.get(challenge, '')
-
 
 #---static_file section--------------------------------
 #urlを直接入力する場合(bookmarkも同じ)もここに入る
@@ -60,7 +45,7 @@ def identify_appid():
 
         anchor = '/' + '/'.join(loads(request.forms.get('page')))
         return { 
-                'appid': app_identity.get_application_id(),
+                #'appid': app_identity.get_application_id(),
                 'token': res.content,
                 'anchor': anchor
                 }
@@ -77,16 +62,7 @@ def contact_mail():
         'note': request.forms.get('note')
     }
     logging.info(params)
-    try:
-        taskqueue.Task(
-            url='/task/mail/contact', 
-            params=params
-        ).add('task')
-        
-        return {'publish': u'メールを送信しました。'}
-    except Exception as e:
-        logging.info(e)
-        abort(500)
+    
 
 #---start utility section------------------------------
 
