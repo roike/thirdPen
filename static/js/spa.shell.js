@@ -132,11 +132,12 @@ spa.shell = (() => {
   //ここでイベントを捕捉する場合はschemaのどれかが最初に必要
   //例:href='/blog/<pre>/<slug>'
   const handleAnchorClick = event => {
-    var element = _.find(event.path, element => {
+    const element = _.find(event.path, element => {
       //constはundefinedを宣言できないのでvarで宣言
       if (element.tagName === 'A') {
         return element;
       }
+      return false;
     });
     //console.info(element);
     //element.classList.contains("someTag")
