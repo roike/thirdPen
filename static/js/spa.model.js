@@ -29,7 +29,7 @@ spa.model = (() =>{
   };
 
   //モックステータス--true-->fakeデータ使用
-  const isFakeData = false;
+  const isFakeData = true;
 
   //インスタンスオブジェクト------------------------
   //初期値-->name='appspot'-->appid未確認-->appid確認にリダイレクト
@@ -108,7 +108,7 @@ spa.model = (() =>{
           spa.gevent.publish(custom[params.channel], data.publish);
         })
         .catch(error => {
-          console.info(error);
+          //console.info(error);
           //認証違反は再認証
           if(_.has(error, 'status') && error.status === '401') {
             initModule();

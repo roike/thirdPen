@@ -229,9 +229,6 @@ spa.shell = (() => {
     // Handle URI anchor change events.
     window.addEventListener('popstate', onPopstate);
 
-    //再サーバ認証処理のためspa.modelにおいた
-    //window.dispatchEvent(new Event('popstate'))
-
   };
 
   

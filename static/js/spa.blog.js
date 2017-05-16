@@ -14,7 +14,7 @@
 spa.blog = (() => {
   'use strict';
   //-------BEGIN SCOPE VARIABLES----------------------------
-  let
+  const
     configMap = {
       anchor: null,
       previous: null,
@@ -23,8 +23,8 @@ spa.blog = (() => {
       //ローカルキャッシュはここで宣言
       container: null,
       selfChannel: null
-    },
-    domMap = {};
+    };
+  let  domMap = {};
   //定数はここで宣言
 
   //公開モジュールを参照する場合はここで宣言
