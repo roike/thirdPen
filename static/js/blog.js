@@ -1,5 +1,5 @@
 /*
- * third-pen spa.blog.js
+ * thirdpen spa.blog.js
  * See License
  *-----------------------------------------------------------------
 */

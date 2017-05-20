@@ -1,6 +1,5 @@
 /*
- * project: elabo-one
- * spa.showdownext.js
+ * thirdpen spa.showdownext.js
  * See License
  *-----------------------------------------------------------------
  *include showdown Extension and MathJax loading

@@ -29,7 +29,7 @@ spa.model = (() =>{
   };
 
   //モックステータス--true-->fakeデータ使用
-  const isFakeData = true;
+  const isFakeData = false;
 
   //インスタンスオブジェクト------------------------
   //初期値-->name='appspot'-->appid未確認-->appid確認にリダイレクト

@@ -18,7 +18,9 @@
  *  Note:
  *  外部リンクはすべて制御下におく？
  */
+
 spa.shell = (() => {
+
   'use strict';
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   const
@@ -235,7 +237,7 @@ spa.shell = (() => {
   // End PUBLIC method /initModule/
   //shellが公開するメソッド
   return {
-    initModule: initModule,
+    initModule: initModule
   };
   //------------------- END PUBLIC METHODS ---------------------
 })();
