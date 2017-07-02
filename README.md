@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-## Elabo Blog System Subscriber
-ブログの配信のみ行うサブシステムのテンプレートです。実際に自身のブログ<https://thirdpen.com>で使用しているものです。
-###Note
-単体で動作を確認する場合は、spa.model.jsのモックステータスをtrueにしてください。spa.fake.jsに用意したデータの範囲で動作を確認できます。  
-実際に動作させる場合は親システムであるElabo Blog Systemをご自分のアカウントでデプロイする必要があります。  
-またappidで親子関係の承認を行っていますが、子システムのappidは親システムの投稿グループに登録されている必要があります。third-penというappidが投稿グループに登録がある、ということになります。承認の仕組みは今後変更する予定です。
-=======
 # Oto Blog System Client
 自身のブログ<https://thirdpen.com>の公開専用に使用しています。ブログ自体の作成・編集と配信はOto Blog Systemで行っています。
 >>>>>>> google
