@@ -1,6 +1,5 @@
 # Oto Blog System Client
 自身のブログ<https://thirdpen.com>の公開専用に使用しています。ブログ自体の作成・編集と配信はOto Blog Systemで行っています。
->>>>>>> google
 
 ## 動作環境
 Google Compute Engine  
