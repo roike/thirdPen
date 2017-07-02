@@ -63,7 +63,7 @@ spa.home = (() => {
             <h3>${title}</h3>
             <p>${content}</p>
           </section>
-        </div>`;i
+        </div>`;
     }).join('');
 
     domMap.home.innerHTML = html;

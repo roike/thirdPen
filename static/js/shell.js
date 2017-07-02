@@ -18,7 +18,9 @@
  *  Note:
  *  外部リンクはすべて制御下におく？
  */
+
 spa.shell = (() => {
+
   'use strict';
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   const
@@ -132,11 +134,12 @@ spa.shell = (() => {
   //ここでイベントを捕捉する場合はschemaのどれかが最初に必要
   //例:href='/blog/<pre>/<slug>'
   const handleAnchorClick = event => {
-    var element = _.find(event.path, element => {
+    const element = _.find(event.path, element => {
       //constはundefinedを宣言できないのでvarで宣言
       if (element.tagName === 'A') {
         return element;
       }
+      return false;
     });
     //console.info(element);
     //element.classList.contains("someTag")
@@ -228,16 +231,13 @@ spa.shell = (() => {
     // Handle URI anchor change events.
     window.addEventListener('popstate', onPopstate);
 
-    //再サーバ認証処理のためspa.modelにおいた
-    //window.dispatchEvent(new Event('popstate'))
-
   };
 
   
   // End PUBLIC method /initModule/
   //shellが公開するメソッド
   return {
-    initModule: initModule,
+    initModule: initModule
   };
   //------------------- END PUBLIC METHODS ---------------------
 })();

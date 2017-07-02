@@ -142,4 +142,4 @@ spa.contact.template = (() => {
         </div>
       </div>
     </article>`;
-})()
+})();
