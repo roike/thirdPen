@@ -29,7 +29,7 @@ uWSGIのインストールの参考にしたのはFlaskのサンプルですが[
 python3 wsgi.py
 ```
 でbottleを動作させてください。spa.fake.jsに用意したデータの範囲で動作を確認できます。  
-実際に動作させる場合は親システムであるOto Blog Systemをご自分のアカウントでデプロイする必要があります。  
+実際に動作させる場合は、親システムであるOto Blog Systemのように、コンテンツを配信するエンドポイントをご自分でデプロイする必要があります。  
 
 ## History
 ### 動作環境をGoogle App EngineからCompute Engineに変更
